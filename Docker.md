@@ -9,15 +9,13 @@ Image link : [dhhruv12/baat-cheet]('https://hub.docker.com/repository/docker/dhh
 
 ## problem statement 2
 My choice: Option 1
-I would create a new user for him and grant him mininum privileges suing which he can run his project.
+I would create a new user for him and grant him mininum privileges uing which he can run his project via docker.
 #### Execution
-The primary command would be: [`sudo adduser limiteduser --shell=/bin/false --no-create-home`], here, limiteduser is the name of the user we created.
-[`--no-create-home`] will skip creating a home directory for the user whereas [`--shell=/bin/false`] will make sure that the user will never get a shell access, no matter if they're trying to login locally or connect remotely using ssh.
-Limitimg them in [`/etc/ssh/sshd_config`]: [`Matchuser user limiteduser`] [`ForceCommand /bin/false`], both these statements are in different lines of the file.
-Giving enough permissions to run the ssh tunneling: [`ssh -N -D 1080 limiteduser@<server_ip_address>`], it connects successfully and establihes a tunnel between the user and the server which you can use to route your traffic at port 1080, and the best part is, wthe user don't even require a shhell access.
-In case the limiteduser decides to ssh normally, they will get an error and ssh connection closes immediately.
-In this way, we will secure thhe server from getting messed up. It will be of no/minimum use for the hacker or attacker even if they get the credentials of limiteduser.
-In case, the user requires any extra permission, he would be granted it based on the server architecture and after verifing if the permission we are going give can,t be lethal to our server in any way.
+For this situation, there are two solutions available or possible. First is to create a agroup and adding users to it. In this case, when docker daemon starts, it creates a unix socket which is accessible by members of the group. The problem with this solution is that the group ccreated have privileges equivalent to the root user which can be very lethal for our server as it exposes a huge attack surface and no one wants their system to be hacked. So this solution is not possible. You can read more about [sol. 1]('https://docs.docker.com/engine/install/linux-postinstall/') and the [attack surface]('https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface').
+The second and more reliable solution for this situation is [running docker daemon as a non-root user (rootless mode)]('https://docs.docker.com/engine/security/rootless/') : https://docs.docker.com/engine/security/rootless/
+I request you to go through the above mentioned [url]('https://docs.docker.com/engine/security/rootless/') and follow the process mentioned based on linux distro you are using on your system/server.
+Note: Rootless mode is an experimental feature but is much more safe then the 1st solution.
+Instead of writing the whole procedure, I am asking you to go through the official document as even one small mistake can be very dangerous. The mentioned link has a  verywell explained procedure to use this feature.
 
 ## problem statement 3
 Command : [`docker run -v /var/www/my-website:/usr/local/apache2/htdocs httpd`]
