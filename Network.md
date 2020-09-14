@@ -3,12 +3,12 @@
 ## problem statement 1
 For the desired operation, we will take the following steps:
 We are going to use crontab. Execute the followiing steps in the terminal.
-1. [`crontab-e`], it will open the crontb file of the user in the text ediitor.
-2. [`MAILTO = 'admin@example.com'`] [`0 0 * * * netstat; service --status-all`] [`0 0 * * * cat <locations of the files we need to see daily separated by a space>`] : Add these three lines in the file opened in the text editor using ctrl+o, enter, ctrll+x. admin@example.com is the receipent email address. The files, which i would like to see are [`var/log/daemon.log`] [`var/log/syslog`] [`var/log/apache2/error.log`] [`/var/log/nginx/error.log`] [`var/log/rkhunter.log`], more fills can be viewed depending on the sysadmin's requirement. When talking about our SNTC server, we have nginx, for which I have mentioned the /nginx/error.log file.
+1. `crontab-e`, it will open the crontb file of the user in the text ediitor.
+2. `MAILTO = 'admin@example.com'` `0 0 * * * netstat; service --status-all` `0 0 * * * cat <locations of the files we need to see daily separated by a space>` : Add these three lines in the file opened in the text editor using ctrl+o, enter, ctrll+x. admin@example.com is the receipent email address. The files, which i would like to see are `var/log/daemon.log` `var/log/syslog` `var/log/apache2/error.log` `/var/log/nginx/error.log` `var/log/rkhunter.log`, more fills can be viewed depending on the sysadmin's requirement. When talking about our SNTC server, we have nginx, for which I have mentioned the /nginx/error.log file.
 rkhunter.log file mentioned above is for detecting backdoors and stuffs which can be used to identify any malicious activity/user.
 For detection of malicious activities or user, we can even deploy an IDS (intrusion detection system). Many opensource IDS are present in the market and they are reliable. Ex: [Snort](https://www.snort.org/), [Suricata](https://suricata-ids.org/), [Open DLP](https://code.google.com/archive/p/opendlp/)
 We can also deploy honeydrive, a honeypot, which can all be used o detect cyber attack.
-Irrespective of the IDS/honeypot we used, we can share the output file of the IDS/hooneypot on a daily basis using crontab. For this, [`0 0 * * * cat <output file location of the IDS/honeypot>`], add this line in the crontab file we opened earlier. Steps for the same are mentioned above.
+Irrespective of the IDS/honeypot we used, we can share the output file of the IDS/hooneypot on a daily basis using crontab. For this, `0 0 * * * cat <output file location of the IDS/honeypot>`, add this line in the crontab file we opened earlier. Steps for the same are mentioned above.
 In this way, we have fulfilled all the requests demanded by the systemadmin.
 Rather then creating a script, I decided to use built in utility and pre-tested softwares to avoid any kind of vulnerabilities.
 What I learnt: The basis of the cron utility and how it actually work, and earned a more in depth knowledge of IDS
