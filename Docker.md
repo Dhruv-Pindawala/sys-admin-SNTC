@@ -8,8 +8,8 @@ A pretty straight forward answer to this question is that now I am confident wit
 Image link : [dhhruv12/baat-cheet](https://hub.docker.com/repository/docker/dhhruv12/baat-cheet)
 
 ## problem statement 2
-My choice: Option 1
-I would create a new user for him and grant him mininum privileges uing which he can run his project via docker.
+My choice: Option 1. 
+I would create a new user for him and grant him mininum privileges using which he can run his project via docker.
 #### Execution
 For this situation, there are two solutions available or possible. First is to create a agroup and adding users to it. In this case, when docker daemon starts, it creates a unix socket which is accessible by members of the group. The problem with this solution is that the group ccreated have privileges equivalent to the root user which can be very lethal for our server as it exposes a huge attack surface and no one wants their system to be hacked. So this solution is not possible. You can read more about [sol. 1](https://docs.docker.com/engine/install/linux-postinstall/) and the [attack surface](https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface).
 The second and more reliable solution for this situation is [running docker daemon as a non-root user (rootless mode)](https://docs.docker.com/engine/security/rootless/).
